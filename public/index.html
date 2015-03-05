@@ -1,9 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
+	<head>
+		<title>Whack-A-mole Game</title>
+		<style>
+			body {
+				background-image: url(/img/bg2.png);
+				background-repeat: none;
+				background-size: 100%;
+				background-position: 0 -100px;
+			}
+			#container {
+				width: 600px;
+				height: 600px;
+				background-image: url('/img/box_bg.png');
+				margin: auto;
 
-</body>
+			}
+
+			#box {
+				width: 450px;
+				height: 450px;
+				position: relative;
+				float: left;
+				margin: 75px; 
+			}
+			.moleimg {
+				background-image: url('/img/mole.png');
+				background-repeat: no-repeat;
+			}
+			.holes	{
+				width: 148px;
+				height: 148px;
+				position: relative;
+				float: left;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div id="container">
+			<div id="box" class="row">
+				<div id="mole1" class= "holes"></div>
+				<div id="mole2" class= "holes"></div>
+				<div id="mole3" class= "holes"></div>
+				<div id="mole4" class= "holes"></div>
+				<div id="mole5" class= "holes"></div>
+				<div id="mole6" class= "holes"></div>
+				<div id="mole7" class= "holes"></div>
+				<div id="mole8" class= "holes"></div>
+				<div id="mole9" class= "holes"></div>
+			</div>
+		</div>
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script>
+
+			function animateRandomMoles(){
+				var squares = $('.holes');
+
+				var random = Math.floor((Math.random()*9));
+				
+				console.log(squares);
+				console.log(random);
+
+				$(squares[random]).addClass('moleimg');
+
+				setTimeout(function(){
+				$(squares[random]).removeClass('moleimg');
+					
+				}, 800);
+			}
+
+		
+		</script>
+	</body>
 </html>
