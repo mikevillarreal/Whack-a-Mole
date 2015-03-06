@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+
 		<title>Whack-A-mole Game</title>
+
 		<style>
 			body {
 				background-image: url(/img/bg2.png);
 				background-repeat: none;
 				background-size: 100%;
-				background-position: 0 -100px;
+				background-position: 0 -50px;
 			}
 			#container {
 				width: 600px;
@@ -34,11 +38,48 @@
 				position: relative;
 				float: left;
 			}
+			#display {
+				width: 300px;
+				height: 200px;
+				background-color: black;
+				text-align: center;
+				border: black 1px solid;
+				position: absolute;
+				top: 50px;
+				left: 70px;
+				border-radius: 5%;
+
+			}
+			button {
+				font-size: 40px;
+				background: orange;
+				
+			}
+			.awe-font {
+				color: orange;
+				font-family: 'Press Start 2P', cursive;
+				font-size: 30px;
+			}
+
+			#gameOver {
+				display: none;
+				position: absolute;
+				color: black;
+				font: 80px;
+				top: 200px;
+				left: 600px;
+			}
 
 		</style>
 
 	</head>
 	<body>
+		<div id="display">
+			<h1 class="awe-font">SCORE: <span id="score" class="awe-font">0</span></h1>
+			<h2 class="awe-font">Timer: </i> <span id="timer" class="awe-font">10</span></h2>
+			<h2 class="awe-font" id="gameOver">Game Over</h2>
+			<button id=	"start_game" ><i class="fa fa-play-circle-o"> START</i></button>
+		</div>
 		<div id="container">
 			<div id="box" class="row">
 				<div id="mole1" class= "holes"></div>
@@ -54,24 +95,63 @@
 		</div>
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script>
+			$('document').ready(function() {
+            
+	            $('#start_game').click(function() {
+	                startGame();
+	                score = 0;
+	                timer = 10;
+	                $('#score').text(score);
+	                $('#timer').html(timer);
+	                $('#gameOver').css('display', 'none');
+	            });
+	       
+				var timer = '';
+				var score = '';
+				function animateRandomMoles(){
+					var squares = $('.holes');
 
-			function animateRandomMoles(){
-				var squares = $('.holes');
-
-				var random = Math.floor((Math.random()*9));
-				
-				console.log(squares);
-				console.log(random);
-
-				$(squares[random]).addClass('moleimg');
-
-				setTimeout(function(){
-				$(squares[random]).removeClass('moleimg');
+					var random = Math.floor((Math.random()*9));
 					
-				}, 800);
-			}
+					// console.log(squares);
+					console.log(random);
 
-		
+					$(squares[random]).addClass('moleimg');
+
+					$(squares[random]).click(function(){
+						score++;
+						$('#score').text(score);
+					})
+			
+
+					setTimeout(function(){
+					$(squares[random]).removeClass('moleimg');
+						
+					}, 800);
+				}
+
+				// $('squares[random]').click(function(){
+				// 	$('#score').html('yay');
+				// })
+			
+				function startGame(){
+					var	interval = setInterval(function(){
+						if(timer > 0){
+							animateRandomMoles();
+							timer--;
+							$('#timer').html(timer);
+						} else {
+							clearInterval(interval);
+							$('#gameOver').css('display', 'inline-block');
+						}
+					}, 800);
+				};
+
+
+				
+
+
+			});
 		</script>
 	</body>
 </html>
